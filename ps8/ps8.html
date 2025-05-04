@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="mb-4">Event Registration Form</h2>
+    <form class="needs-validation" novalidate>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
+        <label for="fullName">Full Name</label>
+        <div class="invalid-feedback">Please enter your full name.</div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        <label for="email">Email address</label>
+        <div class="invalid-feedback">Please provide a valid email.</div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input type="tel" class="form-control" id="phone" placeholder="1234567890" pattern="\\d{10}" required>
+        <label for="phone">Phone Number (10 digits)</label>
+        <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+      </div>
+
+      <div class="form-floating mb-3">
+        <select class="form-select" id="eventType" required>
+          <option value="" disabled selected>Select an event type</option>
+          <option value="workshop">Workshop</option>
+          <option value="seminar">Seminar</option>
+          <option value="conference">Conference</option>
+        </select>
+        <label for="eventType">Event Type</label>
+        <div class="invalid-feedback">Please select an event type.</div>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="terms" required>
+        <label class="form-check-label" for="terms" data-bs-toggle="tooltip" data-bs-placement="right" title="You must agree before submitting.">
+          I agree to the terms and conditions
+        </label>
+        <div class="invalid-feedback">You must agree before submitting.</div>
+      </div>
+
+      <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Enable Bootstrap tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Validate email format
+    function validateEmail(email) {
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return regex.test(email);
+    }
+
+    // Validate phone number format
+    function validatePhone(phone) {
+      const regex = /^\d{10}$/;
+      return regex.test(phone);
+    }
+
+    // Form validation
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      
+      // Get form elements
+      const emailInput = document.getElementById('email');
+      const phoneInput = document.getElementById('phone');
+      
+      // Add input event listeners for real-time validation
+      emailInput.addEventListener('input', function() {
+        if (this.value.trim() !== '' && !validateEmail(this.value)) {
+          this.setCustomValidity('Please enter a valid email address (e.g., name@example.com)');
+          this.classList.add('is-invalid');
+        } else {
+          this.setCustomValidity('');
+          if (this.value.trim() !== '') {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+          } else {
+            this.classList.remove('is-valid');
+          }
+        }
+      });
+      
+      phoneInput.addEventListener('input', function() {
+        if (this.value.trim() !== '' && !validatePhone(this.value)) {
+          this.setCustomValidity('Please enter a valid 10-digit phone number');
+          this.classList.add('is-invalid');
+        } else {
+          this.setCustomValidity('');
+          if (this.value.trim() !== '') {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+          } else {
+            this.classList.remove('is-valid');
+          }
+        }
+      });
+      
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          // Check email and phone validity
+          const emailValid = validateEmail(emailInput.value);
+          const phoneValid = validatePhone(phoneInput.value);
+          
+          if (!emailValid) {
+            emailInput.setCustomValidity('Please enter a valid email address');
+          }
+          
+          if (!phoneValid) {
+            phoneInput.setCustomValidity('Please enter a valid 10-digit phone number');
+          }
+          
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else {
+            alert('Form submitted successfully!');
+          }
+          
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+</html>

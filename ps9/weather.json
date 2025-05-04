@@ -1,0 +1,9 @@
+{
+    "cities": [
+      { "name": "New York", "temperature": "25°C", "humidity": "60%", "condition": "Sunny" },
+      { "name": "London",   "temperature": "18°C", "humidity": "70%", "condition": "Cloudy" },
+      { "name": "Tokyo",    "temperature": "22°C", "humidity": "65%", "condition": "Rainy" },
+      { "name": "Delhi",    "temperature": "32°C", "humidity": "50%", "condition": "Hot" }
+    ]
+  }
+  

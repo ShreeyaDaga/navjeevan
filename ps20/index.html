@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h1 { margin-top: 0; text-align: center; }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    form input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      grid-column: span 2;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #28a745;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    form button.cancel {
+      background: #dc3545;
+      margin-top: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      background: #fafafa;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      align-items: center;
+    }
+    li .info {
+      flex: 1;
+    }
+    li button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    li button.edit { background: #007bff; color: #fff; }
+    li button.delete { background: #dc3545; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Employee Manager</h1>
+    <form id="form">
+      <input id="name" placeholder="Name" required>
+      <input id="department" placeholder="Department" required>
+      <input id="designation" placeholder="Designation" required>
+      <input id="salary" type="number" placeholder="Salary" required>
+      <input id="date" type="date" required>
+      <button type="submit" id="submit-btn">Add Employee</button>
+      <button type="button" id="cancel-btn" class="cancel" style="display:none;">Cancel</button>
+    </form>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    const api = '/employee';
+    const form = document.getElementById('form');
+    const nameInput = document.getElementById('name');
+    const deptInput = document.getElementById('department');
+    const designationInput = document.getElementById('designation');
+    const salaryInput = document.getElementById('salary');
+    const dateInput = document.getElementById('date');
+    const submitBtn = document.getElementById('submit-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const list = document.getElementById('list');
+
+    let editId = null;
+
+    async function fetchEmployees() {
+      const res = await fetch(api);
+      const employees = await res.json();
+      list.innerHTML = '';
+      employees.forEach(emp => {
+        const li = document.createElement('li');
+        const info = document.createElement('div');
+        info.className = 'info';
+        info.textContent = `${emp.name} | ${emp.department} | ${emp.designation} | ₹${emp.salary} | ${emp.date}`;
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => startEdit(emp);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteEmployee(emp._id);
+
+        li.append(info, editBtn, deleteBtn);
+        list.appendChild(li);
+      });
+    }
+
+    function startEdit(emp) {
+      editId = emp._id;
+      nameInput.value = emp.name;
+      deptInput.value = emp.department;
+      designationInput.value = emp.designation;
+      salaryInput.value = emp.salary;
+      dateInput.value = emp.date;
+      submitBtn.textContent = 'Save Changes';
+      cancelBtn.style.display = 'block';
+    }
+
+    cancelBtn.onclick = () => {
+      editId = null;
+      form.reset();
+      submitBtn.textContent = 'Add Employee';
+      cancelBtn.style.display = 'none';
+    };
+
+    async function deleteEmployee(id) {
+      if (!confirm('Delete this employee?')) return;
+      await fetch(`${api}/${id}`, { method: 'DELETE' });
+      fetchEmployees();
+    }
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      const formData = {
+        name: nameInput.value,
+        department: deptInput.value,
+        designation: designationInput.value,
+        salary: parseFloat(salaryInput.value),
+        date: dateInput.value
+      };
+      if (editId) {
+        await fetch(`${api}/${editId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+      } else {
+        await fetch(api, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+      }
+      cancelBtn.onclick();
+      fetchEmployees();
+    };
+
+    fetchEmployees();
+  </script>
+</body>
+</html>

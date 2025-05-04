@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bookstore Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h1 { margin-top: 0; text-align: center; }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    form input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      grid-column: span 2;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background: #28a745;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    form button.cancel {
+      background: #dc3545;
+      margin-top: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      background: #fafafa;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+      align-items: center;
+    }
+    li .info {
+      flex: 1;
+    }
+    li button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    li button.edit { background: #007bff; color: #fff; }
+    li button.delete { background: #dc3545; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Bookstore Manager</h1>
+    <form id="form">
+      <input id="title" placeholder="Title" required>
+      <input id="author" placeholder="Author" required>
+      <input id="price" type="number" placeholder="Price" required>
+      <input id="genre" placeholder="Genre" required>
+      <button type="submit" id="submit-btn">Add Book</button>
+      <button type="button" id="cancel-btn" class="cancel" style="display:none;">Cancel</button>
+    </form>
+    <ul id="list"></ul>
+  </div>
+
+  <script>
+    const api = '/books';
+    const form = document.getElementById('form');
+    const titleInput = document.getElementById('title');
+    const authorInput = document.getElementById('author');
+    const priceInput = document.getElementById('price');
+    const genreInput = document.getElementById('genre');
+    const submitBtn = document.getElementById('submit-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const list = document.getElementById('list');
+
+    let editId = null;
+
+    async function fetchBooks() {
+      const res = await fetch(api);
+      const books = await res.json();
+      list.innerHTML = '';
+      books.forEach(b => {
+        const li = document.createElement('li');
+        const info = document.createElement('div');
+        info.className = 'info';
+        info.textContent = `${b.title} by ${b.author} – $${b.price} [${b.genre}]`;
+
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = () => startEdit(b);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.onclick = () => deleteBook(b._id);
+
+        li.append(info, editBtn, deleteBtn);
+        list.appendChild(li);
+      });
+    }
+
+    function startEdit(book) {
+      editId = book._id;
+      titleInput.value = book.title;
+      authorInput.value = book.author;
+      priceInput.value = book.price;
+      genreInput.value = book.genre;
+      submitBtn.textContent = 'Save Changes';
+      cancelBtn.style.display = 'block';
+    }
+
+    cancelBtn.onclick = () => {
+      editId = null;
+      form.reset();
+      submitBtn.textContent = 'Add Book';
+      cancelBtn.style.display = 'none';
+    };
+
+    async function deleteBook(id) {
+      if (!confirm('Delete this book?')) return;
+      await fetch(`${api}/${id}`, { method: 'DELETE' });
+      fetchBooks();
+    }
+
+    form.onsubmit = async e => {
+      // e.preventDefault(); 
+      const formData = {
+        title: titleInput.value,
+        author: authorInput.value,
+        price: parseFloat(priceInput.value),
+        genre: genreInput.value
+      };
+      if (editId) {
+        await fetch(`${api}/${editId}`, {
+          method: 'PUT',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(formData)
+        });
+      } else {
+        await fetch(api, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(formData)
+        });
+      }
+      cancelBtn.onclick();
+      fetchBooks();
+    };
+
+    fetchBooks();
+  </script>
+</body>
+</html>

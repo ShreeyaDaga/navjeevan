@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+
+    <script>
+        fetch('/api/prods')
+            .then(response => response.json())
+            .then(prods => {
+                const tbody = document.getElementById('tbody');
+                tbody.innerHTML = "";
+
+                prods.forEach(prod => {
+                    tbody.innerHTML += `
+                    <tr>
+                        <td><img src="${prod.image}" alt="${prod.name}"></td>
+                        <td>${prod.name}</td>
+                        <td>${prod.price}</td>
+                    </tr>
+                    `
+                })
+            })
+            .catch(error => console.error("Error loading Products: ", error));
+    </script>
+</body>
+</html>

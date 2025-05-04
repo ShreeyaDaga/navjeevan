@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Learning Hub - Courses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #ff6f61;
+      --dark: #333;
+      --light: #f9f9f9;
+      --text: #444;
+      --radius: 8px;
+      --transition: 0.3s;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 1rem 0;
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    header nav a {
+      color: #ddd;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    header nav a:hover {
+      color: #fff;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffe7e2 0%, #fff 100%);
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .hero p {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: background var(--transition);
+    }
+    .hero .btn:hover {
+      background: #e65b4f;
+    }
+
+    .section {
+      padding: 3rem 1rem;
+    }
+    .section .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .section h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    .section h3::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 4px;
+      background: var(--accent);
+      bottom: 0;
+      left: 0;
+    }
+
+    /* Learning Paths */
+    .paths {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .path {
+      flex: 1 1 30%;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform var(--transition);
+    }
+    .path:hover {
+      transform: translateY(-5px);
+    }
+    .path .step {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .path h4 {
+      font-size: 1.25rem;
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+    .categories span {
+      background: #fff;
+      padding: .5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background var(--transition), transform var(--transition);
+      cursor: pointer;
+    }
+    .categories span:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    /* Course Cards */
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .course {
+      background: #fff;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform var(--transition);
+    }
+    .course:hover {
+      transform: translateY(-5px);
+    }
+    .course-header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1rem;
+    }
+    .course-header h4 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    .course-body {
+      padding: 1rem;
+    }
+    .course-body p {
+      margin-bottom: .75rem;
+      font-size: .95rem;
+    }
+    .course-body .fee {
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .course-body .btn {
+      display: inline-block;
+      margin-top: .5rem;
+      text-decoration: none;
+      padding: .5rem 1rem;
+      border-radius: var(--radius);
+      background: var(--dark);
+      color: #fff;
+      font-size: .9rem;
+      transition: background var(--transition);
+    }
+    .course-body .btn:hover {
+      background: #555;
+    }
+
+    footer {
+      background: var(--dark);
+      color: #ccc;
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: .9rem;
+    }
+
+    @media(max-width: 768px) {
+      .paths { flex-direction: column; }
+      header .container { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="container">
+      <h1>Online Learning Hub</h1>
+      <nav>
+        <a href="#hero">Home</a>
+        <a href="#paths">Learning Paths</a>
+        <a href="#categories">Categories</a>
+        <a href="#courses">Courses</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <h2>Welcome to Online Learning Hub</h2>
+    <p>Discover the benefits of online learning and explore our curated paths and courses designed to help you grow at your own pace.</p>
+    <a href="#courses" class="btn">Browse Courses</a>
+  </section>
+
+  <!-- Learning Paths -->
+  <section id="paths" class="section">
+    <div class="container">
+      <h3>Step-by-Step Learning Paths</h3>
+      <div class="paths">
+        <div class="path">
+          <div class="step">1</div>
+          <h4>Beginner</h4>
+          <p>Start with fundamentals and build a solid base.</p>
+        </div>
+        <div class="path">
+          <div class="step">2</div>
+          <h4>Intermediate</h4>
+          <p>Dive deeper into concepts with hands-on projects.</p>
+        </div>
+        <div class="path">
+          <div class="step">3</div>
+          <h4>Advanced</h4>
+          <p>Master your skills and tackle real-world challenges.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section id="categories" class="section" style="background: #fff;">
+    <div class="container">
+      <h3>Course Categories</h3>
+      <div class="categories">
+        <span>AI &amp; ML</span>
+        <span>Data Science</span>
+        <span>Web Development</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses -->
+  <section id="courses" class="section">
+    <div class="container">
+      <h3>Available Courses</h3>
+      <div class="courses">
+        <div class="course">
+          <div class="course-header">
+            <h4>Intro to AI &amp; ML</h4>
+          </div>
+          <div class="course-body">
+            <p><strong>Instructor:</strong> Dr. Aisha Khan</p>
+            <p><strong>Duration:</strong> 8 weeks</p>
+            <p class="fee"><strong>Fee:</strong> ₹12,000</p>
+            <a href="#" class="btn">Enroll Now</a>
+          </div>
+        </div>
+
+        <div class="course">
+          <div class="course-header">
+            <h4>Data Science Essentials</h4>
+          </div>
+          <div class="course-body">
+            <p><strong>Instructor:</strong> Mr. Rajiv Menon</p>
+            <p><strong>Duration:</strong> 10 weeks</p>
+            <p class="fee"><strong>Fee:</strong> ₹15,000</p>
+            <a href="#" class="btn">Enroll Now</a>
+          </div>
+        </div>
+
+        <div class="course">
+          <div class="course-header">
+            <h4>Full-Stack Web Dev</h4>
+          </div>
+          <div class="course-body">
+            <p><strong>Instructor:</strong> Ms. Priyanka Joshi</p>
+            <p><strong>Duration:</strong> 12 weeks</p>
+            <p class="fee"><strong>Fee:</strong> ₹18,000</p>
+            <a href="#" class="btn">Enroll Now</a>
+          </div>
+        </div>
+
+        <!-- add more .course cards as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Online Learning Hub. All rights reserved.
+  </footer>
+
+</body>
+</html>

@@ -4,15 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pune Institute of Computer Technology</title>
-  <!-- Bootstrap CSS -->
-  <link href="./css/bootstrap.min.css" rel="stylesheet">
-
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Global resets */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+    }
+    /* Navbar */
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    /* Hero */
+    .hero {
+      background: url('images/bg.jpg') center/cover no-repeat;
+      height: 60vh;
+      position: relative;
+      color: white;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+    }
+    .hero-overlay h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero-overlay p {
+      font-size: 1.25rem;
+      max-width: 600px;
+    }
+    /* Section headings */
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background-color: #007bff;
+      margin-top: 0.5rem;
+      border-radius: 2px;
+    }
+    /* Card grid fix */
+    #toppers .row > div {
+      margin-bottom: 1.5rem;
+    }
+    /* Footer */
+    footer {
+      background-color: #343a40;
+      color: #adb5bd;
+    }
+    footer a {
+      color: #adb5bd;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: white;
+    }
+  </style>
 </head>
 <body>
+
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-      <h1><a class="navbar-brand" href="#">Pune Institute of Computer Technology</a></h1>
+      <a class="navbar-brand" href="#">PICT</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,72 +90,98 @@
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#welcome">Welcome</a></li>
-          <li class="nav-item"><a class="nav-link" href="#achievements">Our Achievements</a></li>
-          <li class="nav-item"><a class="nav-link" href="#toppers">Year-Wise Toppers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+          <li class="nav-item"><a class="nav-link" href="#toppers">Toppers</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Home Section -->
-  <section id="home" class="py-5 text-center bg-light">
-    <div class="container">
-      <img src="images/bg.jpg" class=" img-fluid w-100 p-0 p-0 border-0 ">
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-overlay">
+      <h1>Welcome to PICT</h1>
+      <p>Empowering students to achieve excellence in technology and research since 1983.</p>
+      <a href="#welcome" class="btn btn-primary btn-lg mt-3">Learn More</a>
     </div>
   </section>
 
-
-  <!-- Home Section -->
-  <section id="welcome" class="py-5 text-center bg-light">
-    <div class="container">
-      <h1 class="display-5">Welcome to XYZ College</h1>
-      <p class="lead">Empowering students to achieve excellence in technology and research.</p>
+  <!-- Welcome Section -->
+  <section id="welcome" class="py-5">
+    <div class="container text-center">
+      <h2 class="section-title">Welcome to XYZ College</h2>
+      <p class="lead">At Pune Institute of Computer Technology, we foster innovation, leadership, and academic excellence through cutting-edge curriculum, hands-on laboratories, and industry partnerships.</p>
     </div>
   </section>
 
   <!-- Achievements Section -->
-  <section id="achievements" class="py-5 text-center">
-    <div class="container">
-      <h2 class="mb-4">Our Achievements</h2>
-      <p>Over the years, our students have secured top ranks in university examinations, national competitions, and international hackathons.</p>
+  <section id="achievements" class="py-5 bg-white">
+    <div class="container text-center">
+      <h2 class="section-title">Our Achievements</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Top University Ranks</h5>
+              <p class="card-text">Consistent top placements in state and university examinations across all departments.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">National Competitions</h5>
+              <p class="card-text">Our teams have won numerous hackathons and coding contests at the national level.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">International Hackathons</h5>
+              <p class="card-text">PICT students have represented India and secured laurels at global hackathons.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Toppers Section -->
-  <section id="toppers" class="py-5 bg-light">
+  <section id="toppers" class="py-5">
     <div class="container">
-      <h2 class="mb-4 text-center">Year-Wise Toppers</h2>
-      <div class="ro">
+      <h2 class="section-title text-center">Year-Wise Toppers</h2>
+      <div class="row g-4 justify-content-center">
         <!-- Topper Card 2024 -->
-        <div class="col-md-4 col-sm-6 col-12">
-          <div class="card h-100">
-            <img src="images/img.jpg" class="card-img-top" alt="Topper 2024">
+        <div class="col-md-4 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <img src="images/img-2024.jpg" class="card-img-top" alt="Priya Sharma">
             <div class="card-body">
-              <h5 class="card-title">2024 Topper: Priya Sharma</h5>
-              <p class="card-text"><strong>Department:</strong> Computer Engineering</p>
-              <p class="card-text"><strong>Percentage:</strong> 95.6%</p>
+              <h5 class="card-title">Priya Sharma (2024)</h5>
+              <p class="mb-1"><strong>Computer Engineering</strong></p>
+              <p class="text-muted">95.6%</p>
             </div>
           </div>
         </div>
         <!-- Topper Card 2023 -->
-        <div class="col-md-4 col-sm-6 col-12">
-          <div class="card h-100">
-            <img src="images/img.jpg" class="card-img-top" alt="Topper 2023">
+        <div class="col-md-4 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <img src="images/img-2023.jpg" class="card-img-top" alt="Rahul Deshpande">
             <div class="card-body">
-              <h5 class="card-title">2023 Topper: Rahul Deshpande</h5>
-              <p class="card-text"><strong>Department:</strong> Information Technology</p>
-              <p class="card-text"><strong>Percentage:</strong> 94.8%</p>
+              <h5 class="card-title">Rahul Deshpande (2023)</h5>
+              <p class="mb-1"><strong>Information Technology</strong></p>
+              <p class="text-muted">94.8%</p>
             </div>
           </div>
         </div>
         <!-- Topper Card 2022 -->
-        <div class="col-md-4 col-sm-6 col-12">
-          <div class="card h-100">
-            <img src="images/img.jpg" class="card-img-top" alt="Topper 2022">
+        <div class="col-md-4 col-sm-6">
+          <div class="card h-100 shadow-sm">
+            <img src="images/img-2022.jpg" class="card-img-top" alt="Sneha Kulkarni">
             <div class="card-body">
-              <h5 class="card-title">2022 Topper: Sneha Kulkarni</h5>
-              <p class="card-text"><strong>Department:</strong> Electronics & Telecommunication</p>
-              <p class="card-text"><strong>Percentage:</strong> 96.2%</p>
+              <h5 class="card-title">Sneha Kulkarni (2022)</h5>
+              <p class="mb-1"><strong>Electronics & Telecommunication</strong></p>
+              <p class="text-muted">96.2%</p>
             </div>
           </div>
         </div>
@@ -94,30 +190,33 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-dark text-light py-4">
+  <footer class="py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mb-3">
           <h5>Address</h5>
-          <p>Plot No. 13, Opposite Prabodhankar Thackeray Hall,<br>
+          <p class="small">Plot No. 13, Opposite Prabodhankar Thackeray Hall,<br>
           Shivajinagar, Pune - 411005, India</p>
         </div>
         <div class="col-md-4 mb-3">
-          <h5>Contact</h5>
-          <p>Phone: +91-20-25507100<br>
-          Email: info@pict.edu</p>
+          <h5>Contact Us</h5>
+          <p class="small mb-1">Phone: +91-20-25507100</p>
+          <p class="small">Email: <a href="mailto:info@pict.edu">info@pict.edu</a></p>
         </div>
         <div class="col-md-4 mb-3">
           <h5>Follow Us</h5>
-          <a href="#" class="text-light me-2">Facebook</i></a>
-          <a href="#" class="text-light me-2">Twitter</a>
-          <a href="#" class="text-light me-2">Instagram</i></a>
-          <a href="#" class="text-light">Linkedin</i></a>
+          <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
         </div>
       </div>
+      <div class="text-center mt-3 small">&copy; 2025 Pune Institute of Computer Technology. All Rights Reserved.</div>
     </div>
   </footer>
 
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

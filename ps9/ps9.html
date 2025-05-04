@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Simple Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    /* --- Input & Button --- */
+    .input-group {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    #cityInput {
+      padding: 10px;
+      font-size: 1rem;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+    #btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: 1px solid #2980b9;
+      background: #3498db;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #btn:hover {
+      background: #2980b9;
+    }
+
+    /* --- Weather Card --- */
+    #weather-container {
+      width: 300px;
+    }
+    .weather-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 20px;
+      margin-top: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .weather-card h2 {
+      margin: 0 0 10px;
+      color: #34495e;
+    }
+    .weather-card p {
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather Lookup</h1>
+  <input type="text" id="cityInput" placeholder="Enter city name">
+  <button id="btn">Get Weather</button>
+  <div id="result"></div>
+
+  <script src="ps9.js">
+  </script>
+</body>
+</html>

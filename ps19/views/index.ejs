@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        table{
+            width: 80%;
+            text-align: left;
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        td, th{
+            padding: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+        }
+
+        h3{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <p>Total count of Students <%= count %></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Roll Number</th>
+                <th>WAD Marks</th>
+                <th>CC Marks</th>
+                <th>DSBDA Marks</th>
+                <th>CNS Marks</th>
+                <th>AI Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% all.forEach(student => { %>
+                <tr>
+                    <td><%= student.Name %></td>
+                    <td><%= student.RollNo %></td>
+                    <td><%= student.WAD_marks %></td>
+                    <td><%= student.CC_marks %></td>
+                    <td><%= student.DSBDA_marks %></td>
+                    <td><%= student.CNS_marks %></td>
+                    <td><%= student.AI_marks %></td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+
+    <div>
+        <h3>Students with DSBDA marks > 20</h3>
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>DSBDA marks</th>
+            </tr>
+            <% dsbdaStudents.forEach(stud => { %>
+                <tr>
+                    <td><%= stud.Name %></td>
+                    <td><%= stud.DSBDA_marks %></td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+
+
+    <div>
+        <h3>Students with marks greater than 25 in all subjects</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Roll Number</th>
+                    <th>WAD Marks</th>
+                    <th>CC Marks</th>
+                    <th>DSBDA Marks</th>
+                    <th>CNS Marks</th>
+                    <th>AI Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% all25Students.forEach(student => { %>
+                    <tr>
+                        <td><%= student.Name %></td>
+                        <td><%= student.RollNo %></td>
+                        <td><%= student.WAD_marks %></td>
+                        <td><%= student.CC_marks %></td>
+                        <td><%= student.DSBDA_marks %></td>
+                        <td><%= student.CNS_marks %></td>
+                        <td><%= student.AI_marks %></td>
+                    </tr>
+                <%})%>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
