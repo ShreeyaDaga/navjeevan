@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <!-- jQuery Mobile CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <!-- jQuery & jQM JS -->
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: rgb(248, 248, 248);
+      line-height: 1.5;
+    }
+    .card {
+      margin: 25px auto;
+      width: 80%;
+      background-color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    /* Center text in header, content, footer */
+    .ui-header, .ui-content, .ui-footer {
+      text-align: center !important;
+    }
+    /* Header styling */
+    .ui-header {
+      background-color: rgb(38, 38, 126) !important;
+      border: 0;
+      padding: 10px;
+    }
+    .ui-header h1 {
+      color: antiquewhite !important;
+      font-weight: bolder;
+    }
+    /* Navbar active button */
+    div[data-role="page"]#home .ui-navbar a[href="#home"],
+    div[data-role="page"]#about .ui-navbar a[href="#about"],
+    div[data-role="page"]#projects .ui-navbar a[href="#projects"],
+    div[data-role="page"]#skills .ui-navbar a[href="#skills"],
+    div[data-role="page"]#contact .ui-navbar a[href="#contact"] {
+      background-color: rgb(38, 38, 126) !important;
+      color: antiquewhite !important;
+    }
+    /* Collapsible cards */
+    .ui-collapsible.card {
+      width: 80% !important;
+      margin: 20px auto !important;
+    }
+    .ui-collapsible ul {
+      text-align: left;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Home Page -->
+<div data-role="page" id="home">
+  <div data-role="header">
+    <h1>My Portfolio</h1>
+  </div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#projects" data-icon="grid">Projects</a></li>
+      <li><a href="#skills" data-icon="star">Skills</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <h2>Welcome!</h2>
+    <p>I'm a passionate developer excited to showcase my work.</p>
+    <ul data-role="listview" data-inset="true">
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact Info</a></li>
+    </ul>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 My Portfolio</h4>
+  </div>
+</div>
+
+<!-- About Page -->
+<div data-role="page" id="about">
+  <div data-role="header">
+    <h1>About Me</h1>
+  </div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#projects" data-icon="grid">Projects</a></li>
+      <li><a href="#skills" data-icon="star">Skills</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <p>Hello! I'm Peter Parker, a web developer with a love for clean code, mobile-first design, and building user-friendly experiences.</p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 My Portfolio</h4>
+  </div>
+</div>
+
+<!-- Projects Page -->
+<div data-role="page" id="projects">
+  <div data-role="header">
+    <h1>Projects</h1>
+  </div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#projects" data-icon="grid">Projects</a></li>
+      <li><a href="#skills" data-icon="star">Skills</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content">
+    <div class="project-item card">
+      <h3>Todo App</h3>
+      <p>A simple and intuitive todo list application built with Angular.</p>
+    </div>
+    <div class="project-item card">
+      <h3>Weather Dashboard</h3>
+      <p>Real-time weather app using OpenWeather API and Bootstrap.</p>
+    </div>
+    <div class="project-item card">
+      <h3>Portfolio Website</h3>
+      <p>A personal portfolio built with HTML, CSS, JavaScript, and jQuery Mobile.</p>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 My Portfolio</h4>
+  </div>
+</div>
+
+<!-- Skills Page -->
+<div data-role="page" id="skills">
+  <div data-role="header">
+    <h1>Skills</h1>
+  </div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#projects" data-icon="grid">Projects</a></li>
+      <li><a href="#skills" data-icon="star">Skills</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content">
+    <div class="skill-item card">
+      <h3>Front-End</h3>
+      <p>HTML5, CSS3, JavaScript, Bootstrap, Angular</p>
+    </div>
+    <div class="skill-item card">
+      <h3>Back-End</h3>
+      <p>Node.js, Express.js, MongoDB</p>
+    </div>
+    <div class="skill-item card">
+      <h3>Tools</h3>
+      <p>Git, VS Code, Figma, Postman</p>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 My Portfolio</h4>
+  </div>
+</div>
+
+<!-- Contact Page -->
+<div data-role="page" id="contact">
+  <div data-role="header">
+    <h1>Contact Info</h1>
+  </div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#projects" data-icon="grid">Projects</a></li>
+      <li><a href="#skills" data-icon="star">Skills</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <p><strong>Email:</strong> spidey@mail.com</p>
+    <p><strong>Phone:</strong> +91-9876543210</p>
+    <p><strong>Location:</strong> Pune, Maharashtra, India</p>
+    <p><strong>LinkedIn:</strong> <a href="#">linkedin.com/in/peterbparker</a></p>
+    <p><strong>GitHub:</strong> <a href="#">github.com/peterbparker</a></p>
+  </div>
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 My Portfolio</h4>
+  </div>
+</div>
+
+</body>
+</html>

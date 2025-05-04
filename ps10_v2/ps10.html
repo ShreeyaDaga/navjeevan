@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX To-Do List</title>
+    <link rel="stylesheet" href="ps10.css">
+</head>
+<body>
+    <div class="loader" id="loader"></div>
+    
+    <div class="container">
+        <header>
+            <h1>AJAX To-Do List</h1>
+            <p>Add tasks and they'll be saved automatically</p>
+        </header>
+        
+        <form class="task-form" id="task-form">
+            <input 
+                type="text" 
+                class="task-input" 
+                id="task-input" 
+                placeholder="What needs to be done?" 
+                autocomplete="off" 
+                required
+            >
+            <button type="submit" class="add-btn">Add Task</button>
+        </form>
+        
+        <div class="status-bar">
+            <div class="task-count" id="task-count">0 tasks remaining</div>
+            <div class="filter-options">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="active">Active</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+        </div>
+        
+        <ul class="tasks-container" id="tasks-container">
+            <!-- Tasks will be inserted here -->
+            <div class="empty-state" id="empty-state">
+                No tasks yet. Add one above!
+            </div>
+        </ul>
+    </div>
+    
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        (()=> {
+          const API = 'https://jsonplaceholder.typicode.com/todos';
+          const $ = s => document.querySelector(s);
+          const list = $('#tasks-container'), form = $('#task-form'), input = $('#task-input');
+          const filters = document.querySelectorAll('.filter-btn'), countEl = $('#task-count');
+          let tasks = [], filter = 'all';
+        
+          function http(method, url, data, cb) {
+            const r = new XMLHttpRequest();
+            r.open(method, url);
+            r.setRequestHeader('Content-Type','application/json');
+            r.onload = () => {
+              if (r.status < 300) cb(JSON.parse(r.responseText));
+              else console.error(r.statusText);
+            };
+            r.onerror = () => console.error('Network error');
+            r.send(data ? JSON.stringify(data) : null);
+          }
+        
+          function render() {
+            const shown = tasks.filter(t =>
+              filter === 'all' ? true :
+              filter === 'active' ? !t.completed :
+              t.completed
+            );
+            list.innerHTML = shown.map(t => `
+              <li data-id="${t.id}" class="${t.completed ? 'completed' : ''}">
+                <input type="checkbox"${t.completed ? ' checked' : ''}>
+                <span>${t.text}</span>
+                <button>✖</button>
+              </li>
+            `).join('') || '<div class="empty-state">No tasks yet</div>';
+            const rem = tasks.filter(t => !t.completed).length;
+            countEl.textContent = `${rem} task${rem !== 1 ? 's' : ''} left`;
+          }
+        
+          form.addEventListener('submit', e => {
+            e.preventDefault();
+            const txt = input.value.trim();
+            if (!txt) return;
+            http('POST', API, { title: txt, completed: false, userId: 1 }, () => {
+              tasks.unshift({ id: Date.now(), text: txt, completed: false });
+              input.value = '';
+              render();
+            });
+          });
+        
+          list.addEventListener('click', e => {
+            const li = e.target.closest('li');
+            if (!li) return;
+            const id = +li.dataset.id;
+            if (e.target.type === 'checkbox') {
+              const t = tasks.find(x => x.id === id);
+              http('PUT', `${API}/${id}`, { id, title: t.text, completed: !t.completed, userId:1 }, () => {
+                t.completed = !t.completed;
+                render();
+              });
+            } else if (e.target.tagName === 'BUTTON') {
+              http('DELETE', `${API}/${id}`, null, () => {
+                tasks = tasks.filter(x => x.id !== id);
+                render();
+              });
+            }
+          });
+        
+          filters.forEach(btn => btn.addEventListener('click', () => {
+            filters.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filter = btn.dataset.filter;
+            render();
+          }));
+        
+          render();
+        })();
+        </script>
+        
+      
+</body>
+</html>

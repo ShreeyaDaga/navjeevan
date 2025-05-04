@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PICT Mobile Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- jQuery & jQuery Mobile CSS + JS -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #f2f2f2;
+    }
+    /* Center align all headers and content */
+    .ui-header, .ui-content, .ui-footer {
+      text-align: center !important;
+    }
+    /* Ensure lists inside content align left but centered as blocks */
+    .ui-content ul, .ui-collapsible-content ul {
+      display: inline-block;
+      text-align: left;
+    }
+    /* Header */
+    .ui-header {
+      background: #004080 !important;
+      border-bottom: 2px solid #003060;
+    }
+    .ui-header h1 {
+      color: #ffffff !important;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+    /* Navbar */
+    .ui-navbar, .ui-navbar ul {
+      background: #0066cc !important;
+    }
+    .ui-navbar a {
+      color: #ffffff !important;
+    }
+
+    /* any <div> with data-role="page" AND id="home" */
+    /*     then inside it, an element with class .ui-navbar */
+    /*     then an <a> whose href exactly equals "#home" */
+    div[data-role="page"]#home .ui-navbar a[href="#home"],
+    div[data-role="page"]#about .ui-navbar a[href="#about"],
+    div[data-role="page"]#courses .ui-navbar a[href="#courses"],
+    div[data-role="page"]#departments .ui-navbar a[href="#departments"],
+    div[data-role="page"]#contact .ui-navbar a[href="#contact"] {
+      background: #005bb5 !important;
+      color: #fff !important;
+    }
+    /* Content */
+    .ui-content {
+      padding: 15px;
+      background: #fff;
+    }
+    /* Collapsible */
+    .ui-collapsible-heading-toggle {
+      font-weight: bold;
+      color: #004080;
+    }
+    .ui-collapsible-content {
+      background: #f9f9f9;
+      padding: 10px;
+      border-left: 3px solid #004080;
+    }
+    /* Card Styles */
+    .card {
+      margin: 15px auto;
+      max-width: 90%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      padding: 15px;
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+    .card p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Home Page -->
+<div data-role="page" id="home" data-theme="a">
+  <div data-role="header"><h1>PICT</h1></div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#courses" data-icon="grid">Courses</a></li>
+      <li><a href="#departments" data-icon="star">Departments</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <h2>Welcome to PICT!</h2>
+    <p>Pune Institute of Computer Technology - Excellence in Engineering Education.</p>
+  </div>
+</div>
+
+<!-- About Us Page -->
+<div data-role="page" id="about" data-theme="a">
+  <div data-role="header"><h1>About Us</h1></div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#courses" data-icon="grid">Courses</a></li>
+      <li><a href="#departments" data-icon="star">Departments</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <p>PICT is one of the premier engineering colleges in Pune, known for academic excellence and industry interface.</p>
+  </div>
+</div>
+
+<!-- Courses Offered Page -->
+<div data-role="page" id="courses" data-theme="a">
+  <div data-role="header"><h1>Courses Offered</h1></div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#courses" data-icon="grid">Courses</a></li>
+      <li><a href="#departments" data-icon="star">Departments</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content">
+    <div data-role="collapsible-set">
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Undergraduate</h4>
+        <ul>
+          <li>B.E. in Computer Engineering</li>
+          <li>B.E. in Information Technology</li>
+          <li>B.E. in Electronics &amp; Telecommunication</li>
+        </ul>
+      </div>
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Postgraduate</h4>
+        <ul>
+          <li>M.E. in Computer Engineering</li>
+          <li>M.E. in VLSI &amp; Embedded Systems</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Sample Cards -->
+    <h2>Campus Highlights</h2>
+    <div class="card">
+      <h3>Innovation Lab</h3>
+      <p>State-of-the-art lab for students to work on IoT and AI projects.</p>
+      <a href="https://www.pict.edu" target="_blank" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">Learn More</a>
+    </div>
+    <div class="card">
+      <h3>Sports Complex</h3>
+      <p>Modern sports facilities for various indoor and outdoor games.</p>
+      <a href="#" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">View Facilities</a>
+    </div>
+  </div>
+</div>
+
+<!-- Departments Page -->
+<div data-role="page" id="departments" data-theme="a">
+  <div data-role="header"><h1>Departments</h1></div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#courses" data-icon="grid">Courses</a></li>
+      <li><a href="#departments" data-icon="star">Departments</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content">
+    <div data-role="collapsible-set">
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Computer Science</h4>
+        <p>Focuses on software development, algorithms, and computer architecture. The department offers strong industry collaborations and research opportunities.</p>
+      </div>
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Information Technology</h4>
+        <p>Covers networking, data management, and cybersecurity. IT students gain hands-on experience with modern enterprise systems.</p>
+      </div>
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Electronics &amp; Telecommunication</h4>
+        <p>Emphasizes signal processing, VLSI design, and communication systems. Graduates excel in hardware design and telecom industries.</p>
+      </div>
+      <div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" class="card">
+        <h4>Applied Sciences</h4>
+        <p>Includes Physics, Chemistry, and Mathematics.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Page -->
+<div data-role="page" id="contact" data-theme="a">
+  <div data-role="header"><h1>Contact Us</h1></div>
+  <div data-role="navbar">
+    <ul>
+      <li><a href="#home" data-icon="home">Home</a></li>
+      <li><a href="#about" data-icon="info">About</a></li>
+      <li><a href="#courses" data-icon="grid">Courses</a></li>
+      <li><a href="#departments" data-icon="star">Departments</a></li>
+      <li><a href="#contact" data-icon="phone">Contact</a></li>
+    </ul>
+  </div>
+  <div data-role="content" class="card">
+    <p><strong>Address:</strong> Survey No. 27, Near Trimurti Chowk, Dhankawadi, Pune - 411043</p>
+    <p><strong>Email:</strong> pict@edu.in</p>
+    <p><strong>Phone:</strong> +91 20 24371101</p>
+  </div>
+</div>
+
+</body>
+</html>

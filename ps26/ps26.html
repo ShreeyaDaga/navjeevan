@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>PICT B.E. Course Structure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- jQuery & jQuery Mobile CDN -->
+  <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+  <script src="js/jquery-1.12.4.min.js"></script>
+  <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+  <style>
+    .ui-content {
+      padding-bottom: 60px;
+    }
+
+    .ui-header, .ui-footer {
+      background-color: #003366 !important;
+      color: white !important;
+      text-align: center;
+    }
+
+    /* Custom list style (removing jQuery Mobile's listview style interference) */
+    .custom-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      border: 1px solid #ccc;
+    }
+
+    .custom-list li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .custom-list li:hover {
+      background-color: #e0d3d9;
+      transform: translateX(10px);
+      cursor: pointer;
+    }
+
+    .ui-collapsible-heading .ui-btn {
+      background-color: #005599 !important;
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+
+<div data-role="page" id="home">
+
+  <!-- Header -->
+  <div data-role="header" data-position="fixed">
+    <h1>PICT B.E. Course Structure</h1>
+  </div>
+
+  <!-- Content -->
+  <div data-role="content" class="ui-content">
+    <div data-role="collapsible-set" data-theme="b" data-content-theme="a">
+
+      <!-- FE -->
+      <div data-role="collapsible">
+        <h3>First Year (FE)</h3>
+        <ul class="custom-list">
+          <li><b>Mathematics</b>: Fundamental engineering math concepts.</li>
+          <li><b>Physics</b>: Engineering physics principles.</li>
+          <li><b>Chemistry</b>: Engineering chemistry basics.</li>
+          <li><b>Engineering Mechanics</b>: Statics and dynamics introduction.</li>
+          <li><b>Computer Fundamentals</b>: Basics of computer systems.</li>
+        </ul>
+      </div>
+
+      <!-- SE -->
+      <div data-role="collapsible">
+        <h3>Second Year (SE)</h3>
+        <ul class="custom-list">
+          <li><b>Computer Programming</b>: C/C++ programming techniques.</li>
+          <li><b>Data Structures</b>: Stack, queue, tree, graph, etc.</li>
+          <li><b>Digital Electronics</b>: Logic gates and circuits.</li>
+          <li><b>Discrete Mathematics</b>: Sets, relations, graphs.</li>
+          <li><b>Microprocessor</b>: Intel 8085/8086 architecture.</li>
+        </ul>
+      </div>
+
+      <!-- TE -->
+      <div data-role="collapsible">
+        <h3>Third Year (TE)</h3>
+        <ul class="custom-list">
+          <li><b>Algorithms</b>: Sorting, searching, dynamic programming.</li>
+          <li><b>Operating Systems</b>: Processes, threads, scheduling.</li>
+          <li><b>Computer Networks</b>: OSI/TCP-IP model, protocols.</li>
+          <li><b>Software Engineering</b>: SDLC, agile, UML.</li>
+          <li><b>DBMS</b>: SQL, normalization, transactions.</li>
+        </ul>
+      </div>
+
+      <!-- BE -->
+      <div data-role="collapsible">
+        <h3>Final Year (BE)</h3>
+        <ul class="custom-list">
+          <li><b>Software Engineering</b>: Advanced SE practices.</li>
+          <li><b>Artificial Intelligence</b>: Search, knowledge representation.</li>
+          <li><b>Cloud Computing</b>: Cloud models, virtualization.</li>
+          <li><b>Machine Learning</b>: Supervised, unsupervised learning.</li>
+          <li><b>Data Science</b>: Data analysis, visualization.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div data-role="footer" data-position="fixed">
+    <h4>&copy; 2025 PICT Pune</h4>
+  </div>
+
+</div>
+
+</body>
+</html>
