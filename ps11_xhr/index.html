@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Auth</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        max-width: 400px;
+        margin: auto;
+      }
+      .hidden {
+        display: none;
+      }
+      input,
+      textarea,
+      button {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #333;
+        padding: 4px;
+        text-align: left;
+      }
+      nav button {
+        width: 48%;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>User Auth</h1>
+
+    <nav>
+      <button id="btnShowReg">Register</button>
+      <button id="btnShowLog">Login</button>
+    </nav>
+
+    <!-- Registration -->
+    <section id="reg">
+      <h2>Register</h2>
+      <form id="regForm" novalidate>
+        <input id="name" placeholder="Full Name" required />
+        <input id="email" type="email" placeholder="Email" required />
+        <input
+          id="mobile"
+          placeholder="Mobile (10 digits)"
+          required
+          pattern="\d{10}"
+        />
+        <input id="dob" type="date" required />
+        <input id="city" placeholder="City" required />
+        <textarea
+          id="address"
+          placeholder="Address (min 5 chars)"
+          required
+          minlength="5"
+        ></textarea>
+        <input
+          id="regUser"
+          placeholder="Username (min 4)"
+          required
+          minlength="4"
+        />
+        <input
+          id="regPass"
+          type="password"
+          placeholder="Password (min 6)"
+          required
+          minlength="6"
+        />
+        <button>Submit Registration</button>
+      </form>
+    </section>
+
+    <!-- Login -->
+    <section id="log" class="hidden">
+      <h2>Login</h2>
+      <form id="logForm" novalidate>
+        <input id="logUser" placeholder="Username" required minlength="4" />
+        <input
+          id="logPass"
+          type="password"
+          placeholder="Password"
+          required
+          minlength="6"
+        />
+        <button>Submit Login</button>
+      </form>
+    </section>
+
+    <script>
+        // forms & sections
+        const regForm   = document.getElementById("regForm");
+        const logForm   = document.getElementById("logForm");
+        const regSection = document.getElementById("reg");
+        const logSection = document.getElementById("log");
+
+        // registration inputs
+        const nameInput    = document.getElementById("name");
+        const emailInput   = document.getElementById("email");
+        const mobileInput  = document.getElementById("mobile");
+        const dobInput     = document.getElementById("dob");
+        const cityInput    = document.getElementById("city");
+        const addressInput = document.getElementById("address");
+        const regUserInput = document.getElementById("regUser");
+        const regPassInput = document.getElementById("regPass");
+
+        // login inputs
+        const logUserInput = document.getElementById("logUser");
+        const logPassInput = document.getElementById("logPass");
+
+      // keep users in-memory + localStorage
+      // 'users' — you’re passing in the key (a simple string) that you used when you saved your data.
+      //"users" is just the name you gave that particular entry.
+      // getItem("users") returns whatever string you previously saved under that name (or null if nothing’s there)
+      // the string "users" itself is just the key name you use with localStorage. But what you store under that key is a JSON‐encoded array
+      // as it is in JSON-encoded array so we parse it 
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+      // simple AJAX POST
+      function ajaxPost(url, data, cb) {
+        const xhr = new XMLHttpRequest();
+        // Prepares a POST request to whatever endpoint (/register, /login, etc.).
+        xhr.open("POST", url);
+        //Tells the server “I’m sending you JSON.” - determines the content type of what we are sending
+        xhr.setRequestHeader("Content-Type", "application/json");
+        // cb - callback function - the function you provide to handle the result of the AJAX call.
+        xhr.onload = () => cb(xhr.status);
+        xhr.onerror = () => cb(xhr.status);
+        xhr.send(JSON.stringify(data));
+      }
+
+      // toggle sections between register and login
+      document.getElementById("btnShowReg").onclick = () => {
+        reg.classList.remove("hidden");
+        log.classList.add("hidden");
+      };
+      document.getElementById("btnShowLog").onclick = () => {
+        log.classList.remove("hidden");
+        reg.classList.add("hidden");
+      };
+
+      // Registration handler
+      regForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!regForm.checkValidity()) {  // returns false if any field violates its required, pattern, or minlength.
+          regForm.reportValidity(); // then shows the browser’s built-in tooltip pointing out the first error.
+          return;
+        }
+        const user = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          mobile: mobileInput.value.trim(),
+          dob: dobInput.value,
+          city: cityInput.value.trim(),
+          address: addressInput.value.trim(),
+          username: regUserInput.value.trim(),
+          password: regPassInput.value,
+        };
+
+        // AJAX call (no real server)—treat any status <400 or 0 as “success”
+        // calling the ajaxPost function that we created to call POST requests
+        ajaxPost("/register", user, (status) => {
+          
+            users.push(user); // update the array
+            localStorage.setItem("users", JSON.stringify(users)); // sync back to the local storage
+            location.href = "datalist.html"; // navigates to the user list page
+          
+        });
+      });
+
+      // Login handler
+      logForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!logForm.checkValidity()) {
+          logForm.reportValidity();
+          return;
+        }
+        const uname = logUserInput.value.trim();
+        const pass = logPassInput.value;
+
+        const found = users.find(u =>
+            u.username === uname && u.password === pass
+        );
+
+        if (!found) {
+            // No matching username/password in our stored array
+            alert("Invalid credentials");
+            return;
+        }
+
+
+        ajaxPost("/login", { username: uname, password: pass }, (status) => {
+            sessionStorage.setItem("loggedInUser", JSON.stringify(found));
+            location.href = "datalist.html";
+        });
+      });
+    </script>
+  </body>
+</html>

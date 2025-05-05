@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users List</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #333; padding: 4px; }
+  </style>
+</head>
+<body>
+
+  <h1>Registered Users</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th><th>Email</th><th>Mobile</th>
+        <th>DOB</th><th>City</th><th>Address</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = ""
+    users.forEach(u => {
+      tbody.innerHTML +=
+      `
+        <tr>
+            <td>${u.name}</td>
+            <td>${u.email}</td>
+            <td>${u.mobile}</td>
+            <td>${u.dob}</td>
+            <td>${u.city}</td>
+            <td>${u.address}</td>
+        </tr>
+      `
+    });
+  </script>
+
+</body>
+</html>

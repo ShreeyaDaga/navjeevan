@@ -10,6 +10,12 @@ document.getElementById('btn').addEventListener('click', function() {
     // wait for response to arrive
     xhr.onreadystatechange = function() {
       // readystate - tells you what stage the xhr is in
+      // Holds the status of the XMLHttpRequest.
+      // 0: request not initialized
+      // 1: server connection established
+      // 2: request received
+      // 3: processing request
+      // 4: request finished and response is ready
       if (xhr.readyState === 4) { // file is fully loaded and sent
         if (xhr.status === 200) { // file loaded successfully
           var data = JSON.parse(xhr.responseText).cities; // city response text parsed into js object
