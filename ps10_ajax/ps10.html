@@ -59,38 +59,42 @@
   </div>
 
   <script>
+    // holds all tasks as objects
     let tasks = [];
 
+    // Load Tasks (Simulating AJAX GET)
     // Simulate AJAX fetch from server (localStorage in this case)
     function fetchTasks() {
-      const stored = localStorage.getItem('tasks');
-      tasks = stored ? JSON.parse(stored) : [];
-      renderTasks();
+      const stored = localStorage.getItem('tasks'); // get data from localStorage
+      tasks = stored ? JSON.parse(stored) : []; // If data exists, it parses it from JSON into a JavaScript array.
+      renderTasks(); // tasks are rendered
     }
 
     // Simulate AJAX post to server (localStorage in this case)
     function saveTasks() {
-      localStorage.setItem('tasks', JSON.stringify(tasks));
+      localStorage.setItem('tasks', JSON.stringify(tasks)); // setting the localStorage
     }
 
+    // render the task list
     function renderTasks() {
       const list = document.getElementById('taskList');
       list.innerHTML = '';
       tasks.forEach((task, index) => {
         const li = document.createElement('li');
-        li.className = task.done ? 'done' : '';
+        li.className = task.done ? 'done' : ''; // if task is done then classname will be done
 
         const span = document.createElement('span');
-        span.textContent = task.text;
+        span.textContent = task.text; // task name as span tag
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = task.done;
-        checkbox.onchange = () => toggleDone(index);
+        // toggleDone - declared function by us
+        checkbox.onchange = () => toggleDone(index); // marks the task as done or pending
 
         const editBtn = document.createElement('button');
         editBtn.textContent = '✏️';
-        editBtn.onclick = () => editTask(index);
+        editBtn.onclick = () => editTask(index); // 
 
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '🗑️';
@@ -110,8 +114,8 @@
 
     function addTask() {
       const input = document.getElementById('taskInput');
-      const text = input.value.trim();
-      if (text !== '') {
+      const text = input.value.trim(); // gets input value
+      if (text !== '') { // if some input value is given
         tasks.push({ text, done: false });
         saveTasks(); // Simulate AJAX save
         renderTasks();
@@ -120,7 +124,7 @@
     }
 
     function deleteTask(index) {
-      tasks.splice(index, 1);
+      tasks.splice(index, 1); // removes the task at that particular index
       saveTasks(); // Simulate AJAX save
       renderTasks();
     }
@@ -129,19 +133,33 @@
       const newText = prompt("Update task:", tasks[index].text);
       if (newText !== null && newText.trim() !== '') {
         tasks[index].text = newText.trim();
-        saveTasks(); // Simulate AJAX save
-        renderTasks();
+        saveTasks(); // Simulate AJAX save - post to localStorage
+        renderTasks(); // render all the tasks
       }
     }
 
     function toggleDone(index) {
-      tasks[index].done = !tasks[index].done;
+      tasks[index].done = !tasks[index].done;  // Flips the done status (true → false, or false → true).
       saveTasks(); // Simulate AJAX save
       renderTasks();
     }
 
     // Initial load
     fetchTasks();
+
+//     AJAX (Asynchronous JavaScript and XML) is about:
+
+// Sending and receiving data in the background
+
+// Without reloading the entire web page
+
+// Even though no real server is used here, we simulate both:
+
+// AJAX GET using localStorage.getItem()
+
+// AJAX POST/PUT using localStorage.setItem()
+
+// This means you're doing data exchange without page reload, just like AJAX.
   </script>
 </body>
 </html>

@@ -57,29 +57,37 @@
 
 <script>
   // Storage Utilities
+  // Gets the users key from localStorage (a small browser database).
   const getUsers = () => JSON.parse(localStorage.getItem("users") || "[]");
   const saveUsers = (users) => localStorage.setItem("users", JSON.stringify(users));
 
+  // This function hides or shows the Register/Login/Logout buttons based on login status.
   function toggleNavButtons(isLoggedIn) {
-    document.getElementById("registerBtn").classList.toggle("hidden", isLoggedIn);
-    document.getElementById("loginBtn").classList.toggle("hidden", isLoggedIn);
-    document.getElementById("logoutBtn").classList.toggle("hidden", !isLoggedIn);
+    document.getElementById("registerBtn").classList.toggle("hidden", isLoggedIn); // If isLoggedIn === true, hide the register button.
+    document.getElementById("loginBtn").classList.toggle("hidden", isLoggedIn); // If isLoggedIn === true, hide the login button.
+    document.getElementById("logoutBtn").classList.toggle("hidden", !isLoggedIn); // If isLoggedIn === false, hide the logout button (opposite condition).
   }
 
+  // This function controls which section is visible (like register, login, or user list).
   function showSection(sectionId) {
+    // Loops through all section IDs and hides them by adding the CSS class hidden.
     ["registerSection", "loginSection", "userListSection"].forEach(id =>
       document.getElementById(id).classList.add("hidden")
     );
+    // Then it shows only the section passed to the function by removing the hidden class.
     document.getElementById(sectionId).classList.remove("hidden");
   }
 
-  // Simulate AJAX-style registration
+  // Simulate AJAX-style registration using callback function
   function ajaxRegisterUser(user, callback) {
+    // Simulates an AJAX call by adding a 500ms delay using setTimeout.
     setTimeout(() => {
+      // Retrieves all existing users from localStorage
       const users = getUsers();
+      // Checks if the username already exists (no duplicates allowed).
       if (users.some(u => u.username === user.username)) {
-        callback({ success: false, message: "⚠️ Username already exists." });
-      } else {
+        callback({ success: false, message: "⚠️ Username already exists." }); // If found, runs the callback with a failure response.
+      } else { // Otherwise, it adds the user to the list, saves it, and returns success.
         users.push(user);
         saveUsers(users);
         callback({ success: true });
@@ -89,21 +97,26 @@
 
   // Simulate AJAX-style login
   function ajaxLoginUser(username, password, callback) {
+    // Adds a fake delay to simulate server processing.
     setTimeout(() => {
+      // Retrieves registered users
       const users = getUsers();
+      // Looks for a user with matching username and password
       const matchedUser = users.find(u => u.username === username && u.password === password);
-      if (matchedUser) {
+      if (matchedUser) { // If found, returns success and user data.
         callback({ success: true, user: matchedUser });
-      } else {
+      } else { // Otherwise, returns an error message.
         callback({ success: false, message: "❌ Invalid username or password." });
       }
     }, 500);
   }
 
   // Register Form Handler
+  //  Prevents form from submitting the traditional way (which reloads the page).
   document.getElementById("registerForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
+    // Collects values from the form fields, trims extra spaces, and forms a user object.
     const user = {
       name: name.value.trim(),
       email: email.value.trim(),
@@ -115,13 +128,17 @@
       password: regPassword.value.trim(),
     };
 
+    // Validates that the mobile number has exactly 10 digits.
     if (!/^\d{10}$/.test(user.mobile)) {
+      // If validation fails, it shows an error and stops further processing.
       regMsg.textContent = "❌ Enter a valid 10-digit mobile number.";
       regMsg.className = "text-danger mt-2";
       return;
     }
 
+    // Calls the registration function and waits for response.
     ajaxRegisterUser(user, function (response) {
+      // Shows either success or error message based on response.
       if (response.success) {
         regMsg.textContent = "✅ Registered successfully!";
         regMsg.className = "text-success mt-2";
@@ -135,35 +152,41 @@
 
   // Login Form Handler
   document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Stops the default form reload behavior.
 
+    // Gets and trims the input values.
     const username = loginUsername.value.trim();
     const password = loginPassword.value.trim();
 
+    // Tries to log in using the simulated AJAX function.
     ajaxLoginUser(username, password, function (response) {
-      if (response.success) {
+      if (response.success) { //   // If login is successful, saves the user in sessionStorage (cleared on page refresh or tab close).
         sessionStorage.setItem("loggedInUser", JSON.stringify(response.user));
+        // Clears any previous error, switches to logged-in view, and displays the user tabl
         loginMsg.textContent = "";
         toggleNavButtons(true);
         showSection("userListSection");
         displayUsers();
-      } else {
+      } else { // If login fails, shows an error message.
         loginMsg.textContent = response.message;
       }
     });
   });
 
+
+  // Clears session data, updates buttons, and shows the login form again.
   function logout() {
     sessionStorage.removeItem("loggedInUser");
     toggleNavButtons(false);
     showSection("loginSection");
   }
 
+  // Gets all users from localStorage.
   function displayUsers() {
     const users = getUsers();
     if (users.length === 0) {
       userTable.innerHTML = "<p>No users found.</p>";
-    } else {
+    } else { // Builds a row of table data for each user using .map().
       const rows = users.map(u => `
         <tr>
           <td>${u.name}</td>
@@ -175,6 +198,7 @@
         </tr>
       `).join("");
 
+      // Wraps the rows in a styled Bootstrap table and shows them on the page.
       userTable.innerHTML = `
         <table class="table table-bordered table-striped">
           <thead class="table-dark">
@@ -187,6 +211,7 @@
   }
 
   // Initial load
+  // Checks if someone is already logged in (!! converts to true/false).
   window.onload = () => {
     const isLoggedIn = !!sessionStorage.getItem("loggedInUser");
     toggleNavButtons(isLoggedIn);

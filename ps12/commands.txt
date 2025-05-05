@@ -1,0 +1,22 @@
+Install Angular CLI --> To Create Angular 2 Application Angular CLI is required
+npm install -g @angular/cli@latest
+
+
+Create new angular project --> CSS, SSR yes, Routing yes
+ng new todo
+
+
+cd todo
+
+
+Generate component todo
+ng generate component todo 
+
+copy paste in these files only 
+app.component.css 
+app.component.html
+app.component.ts
+
+
+dont change --
+app.component.specs.ts
